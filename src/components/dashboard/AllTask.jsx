@@ -15,7 +15,7 @@ const AllTasks = () => {
         try {
           // Fetch tasks from the backend using the user's email
           const response = await axios.get(
-            `http://localhost:5000/tasks/${userEmail}`
+            `https://server-roan-delta.vercel.app/tasks/${userEmail}`
           );
           setTasks(response.data); // Set the fetched tasks
         } catch (error) {
@@ -33,17 +33,18 @@ const AllTasks = () => {
   // Function to handle delete task
   const handleDelete = async (taskId) => {
     try {
-      const response = await axios.delete(`http://localhost:5000/tasks/${taskId}`);
+      const response = await axios.delete(
+        `https://server-roan-delta.vercel.app/tasks/${taskId}`
+      );
       if (response.status === 200) {
         // Remove deleted task from the state
-        setTasks(tasks.filter(task => task._id !== taskId));
+        setTasks(tasks.filter((task) => task._id !== taskId));
       }
     } catch (error) {
       console.error("Error deleting task:", error);
       setError("Failed to delete task");
     }
   };
-
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
@@ -87,9 +88,7 @@ const AllTasks = () => {
                   </p>
 
                   <div className="flex space-x-4 mt-4">
-                    <button
-                      className="px-4 py-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600 transition duration-300"
-                    >
+                    <button className="px-4 py-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600 transition duration-300">
                       Edit
                     </button>
                     <button

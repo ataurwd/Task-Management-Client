@@ -24,13 +24,16 @@ const Registration = () => {
 
     try {
       // Send data to the server using fetch (or axios if preferred)
-      const response = await fetch("http://localhost:5000/user", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        "https://server-roan-delta.vercel.app/user",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
       if (response.ok) {
         // Store the user's email in session cookie upon successful registration

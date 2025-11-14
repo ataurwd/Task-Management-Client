@@ -6,14 +6,20 @@ const EditTask = () => {
   const { taskId } = useParams(); // Get taskId from URL params
   const navigate = useNavigate();
 
-  const [task, setTask] = useState({ title: "", description: "", status: "pending" });
+  const [task, setTask] = useState({
+    title: "",
+    description: "",
+    status: "pending",
+  });
   const [error, setError] = useState("");
 
   useEffect(() => {
     // Fetch task details from the backend using the taskId
     const fetchTask = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/tasks/${taskId}`);
+        const response = await axios.get(
+          `https://server-roan-delta.vercel.app/tasks/${taskId}`
+        );
         setTask(response.data); // Set task data in the state
       } catch (error) {
         console.error("Error fetching task:", error);
@@ -29,7 +35,10 @@ const EditTask = () => {
 
     try {
       // Send updated task data to the backend
-      const response = await axios.put(`http://localhost:5000/tasks/${taskId}`, task);
+      const response = await axios.put(
+        `https://server-roan-delta.vercel.app/tasks/${taskId}`,
+        task
+      );
       if (response.status === 200) {
         // Redirect to the task list page after successful edit
         navigate("/all-tasks");
@@ -52,11 +61,16 @@ const EditTask = () => {
         </header>
 
         <main className="mt-6 px-6">
-          {error && <p className="text-red-500">{error}</p>} {/* Display error message if there's an issue */}
-
+          {error && <p className="text-red-500">{error}</p>}{" "}
+          {/* Display error message if there's an issue */}
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
-              <label htmlFor="title" className="block text-sm font-semibold text-gray-700">Title</label>
+              <label
+                htmlFor="title"
+                className="block text-sm font-semibold text-gray-700"
+              >
+                Title
+              </label>
               <input
                 type="text"
                 id="title"
@@ -69,7 +83,12 @@ const EditTask = () => {
             </div>
 
             <div className="mb-4">
-              <label htmlFor="description" className="block text-sm font-semibold text-gray-700">Description</label>
+              <label
+                htmlFor="description"
+                className="block text-sm font-semibold text-gray-700"
+              >
+                Description
+              </label>
               <textarea
                 id="description"
                 name="description"
@@ -81,7 +100,12 @@ const EditTask = () => {
             </div>
 
             <div className="mb-4">
-              <label htmlFor="status" className="block text-sm font-semibold text-gray-700">Status</label>
+              <label
+                htmlFor="status"
+                className="block text-sm font-semibold text-gray-700"
+              >
+                Status
+              </label>
               <select
                 name="status"
                 id="status"
